@@ -2,10 +2,13 @@ import express from 'express';
 import path from 'path';
 import logger from 'morgan';
 import bodyParser from 'body-parser';
+import mongoose from 'mongoose';
 
 import indexRoute from './routes/index';
 
 let app = express();
+
+mongoose.connect(process.env.DB_CONNECTION || 'localhost');
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
