@@ -6,7 +6,7 @@
   "scripts": {
     "test": "mocha --require babel-core/register",
     "build": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log,./test --copy-files",
-    "start": "npm run build && node dist/index.js",
+    "start": "npm run build && NODE_ENV=development node dist/index.js",
     "lint": "eslint ."
   },
   "author": "",
@@ -14,8 +14,13 @@
   "dependencies": {
     "bcrypt": "^1.0.3",
     "express": "^4.16.2",
+    "express-load-routes": "^1.0.1",
+    "express-validator": "^5.0.0",
+    "jsonwebtoken": "^8.1.1",
     "mongoose": "^5.0.5",
     "morgan": "^1.9.0",
+    "passport": "^0.4.0",
+    "passport-jwt": "^3.0.1",
     "rimraf": "^2.6.2"
   },
   "devDependencies": {

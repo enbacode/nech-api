@@ -3,10 +3,6 @@ import app from './app';
 import debug from 'debug';
 import http from 'http';
 
-if(process.env.NODE_ENV != 'production') {
-    require('dotenv').load();
-}
-
 debug('nech-api:server');
 
 const port = normalizePort(process.env.PORT || 3000);
