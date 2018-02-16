@@ -12,6 +12,7 @@ import authRoute from './routes/auth/index';
 
 import User from './model/user';
 
+if(process.env.NODE_ENV != 'production') 
 require('dotenv').load();
 
 const extractJwt = passportJWT.ExtractJwt;
