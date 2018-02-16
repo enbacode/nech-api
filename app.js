@@ -9,7 +9,7 @@ import passportJWT from 'passport-jwt';
 
 import indexRoute from './routes/index';
 import authRoute from './routes/auth/index';
-import meRoute from './routes/user/me';
+import meRoute from './routes/users/me';
 
 import User from './model/user';
 
