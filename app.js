@@ -9,11 +9,12 @@ import passportJWT from 'passport-jwt';
 
 import indexRoute from './routes/index';
 import authRoute from './routes/auth/index';
+import meRoute from './routes/user/me';
 
 import User from './model/user';
 
 if(process.env.NODE_ENV != 'production') 
-require('dotenv').load();
+    require('dotenv').load();
 
 const extractJwt = passportJWT.ExtractJwt;
 const JwtStrategy = passportJWT.Strategy;
@@ -41,7 +42,7 @@ app.use(passport.initialize());
 
 app.use(indexRoute);
 app.use('/auth', authRoute);
-
+app.use('/user/me', meRoute);
 
 app.use((req, res, next) => {
     let error = new Error('Not Found');
