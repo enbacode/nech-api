@@ -42,8 +42,7 @@ app.use(passport.initialize());
 
 app.use(indexRoute);
 app.use('/auth', authRoute);
-app.use('/user/me', meRoute);
-
+app.use('/users/me', meRoute);
 
 app.use((req, res, next) => {
     let error = new Error('Not Found');
