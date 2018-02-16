@@ -3,6 +3,7 @@ import chaiHttp from 'chai-http';
 import server from '../app.js';
 
 chai.use(chaiHttp);
+let should = chai.should();
 
 describe('index', () => {
     it('should successfully GET index', done => {
