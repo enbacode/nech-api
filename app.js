@@ -16,7 +16,7 @@ if(process.env.NODE_ENV != 'production')
 require('dotenv').load();
 
 const extractJwt = passportJWT.ExtractJwt;
-const JwtStrategy = passport.Strategy;
+const JwtStrategy = passportJWT.Strategy;
 
 let jwtOptions = {};
 jwtOptions.jwtFromRequest = extractJwt.fromAuthHeaderAsBearerToken();
