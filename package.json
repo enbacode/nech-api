@@ -5,9 +5,15 @@
   "main": "index.js",
   "scripts": {
     "test": "NODE_ENV=test mocha --require babel-core/register",
-    "build": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log,./test --copy-files",
+    "clear": "rimraf dist/",
+    "build": "npm run clear && babel ./ --out-dir dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log,./test --copy-files",
     "start": "npm run build && NODE_ENV=development node dist/index.js",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "lint-fix": "eslint --fix .",
+    "precommit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.js": ["eslint --fix", "git add"]
   },
   "author": "",
   "license": "ISC",
@@ -33,6 +39,8 @@
     "eslint": "^4.17.0",
     "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-prettier": "^2.6.0",
+    "husky": "^0.14.3",
+    "lint-staged": "^6.1.1",
     "mocha": "^5.0.1",
     "prettier": "1.10.2"
   }
