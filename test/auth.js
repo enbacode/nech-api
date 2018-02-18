@@ -1,13 +1,15 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
-import server from '../app.js';
+import server from '../app';
 
 chai.use(chaiHttp);
-let should = chai.should();
+
+let should = chai.should(); // eslint-disable-line no-unused-vars
 
 describe('auth/login', () => {
     it('should return 400 with no fields', done => {
-        chai.request(server)
+        chai
+            .request(server)
             .post('/auth/login')
             .end((err, res) => {
                 res.should.have.status(400);
@@ -16,9 +18,10 @@ describe('auth/login', () => {
             });
     });
     it('should return 400 with username only', done => {
-        chai.request(server)
+        chai
+            .request(server)
             .post('/auth/login')
-            .send({'username': 'enba'})
+            .send({ username: 'enba' })
             .end((err, res) => {
                 res.should.have.status(400);
                 res.should.be.json;
@@ -27,9 +30,10 @@ describe('auth/login', () => {
     });
 
     it('should return 200 with token using correct credentials', done => {
-        chai.request(server)
+        chai
+            .request(server)
             .post('/auth/login')
-            .send({'username': 'enba', 'password': 'test1234'})
+            .send({ username: 'super', password: 'test1234' })
             .end((err, res) => {
                 res.should.have.status(200);
                 res.should.be.json;

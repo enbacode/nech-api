@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const NechSchema =  new mongoose.Schema({
+const NechSchema = new mongoose.Schema({
     type: {
         type: String,
         enum: ['nech', 'klar', 'trivial']
@@ -8,6 +8,10 @@ const NechSchema =  new mongoose.Schema({
     date: {
         type: Date,
         default: Date.now
+    },
+    by: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
     }
 });
 

@@ -9,31 +9,42 @@ import passportJWT from 'passport-jwt';
 
 import indexRoute from './routes/index';
 import authRoute from './routes/auth/index';
+import userRoute from './routes/users/index';
 import meRoute from './routes/users/me';
+import nechsRoute from './routes/nechs/index';
 
 import User from './model/user';
 
-if(process.env.NODE_ENV != 'production') 
-    require('dotenv').load();
+if (process.env.NODE_ENV != 'production') require('dotenv').load();
 
 const extractJwt = passportJWT.ExtractJwt;
 const JwtStrategy = passportJWT.Strategy;
 
 let jwtOptions = {};
-jwtOptions.jwtFromRequest = extractJwt.fromAuthHeaderAsBearerToken();
+jwtOptions.jwtFromRequest = extractJwt.fromAuthHeaderAsBearerToken('');
 jwtOptions.secretOrKey = 'notproductionready';
 
-passport.use('jwt', new JwtStrategy(jwtOptions, (payload, done) => {
-    User.findOne({ username: payload.username }, (err, user) => {
-        if(err) return done(err, false);
-        if(user) return done(null, user);
-        else return done(null, false);
-    });
-}));
+passport.use(
+    'jwt',
+    new JwtStrategy(jwtOptions, (payload, done) => {
+        User.findOne({ username: payload.user.username }, (err, user) => {
+            if (err) return done(err, false);
+            if (user) return done(null, user);
+            else return done(null, false);
+        });
+    })
+);
 
 let app = express();
 
 mongoose.connect(process.env.DB_CONNECTION || 'localhost');
+
+if (process.env.NODE_ENV != 'production') {
+    let mock = require('./mock');
+    User.remove({}).then(() => {
+        User.create(mock.users);
+    });
+}
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -54,11 +65,10 @@ app.use((err, req, res) => {
     // set locals, only providing error in development
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};
-  
+
     // render the error page
     res.status(err.status || 500);
     res.render('error');
 });
-  
 
 module.exports = app;
