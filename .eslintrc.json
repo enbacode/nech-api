@@ -5,14 +5,16 @@
         "mocha": true
     },
     "parser": "babel-eslint",
-    "extends": "eslint:recommended",
+    "extends": ["eslint:recommended", "prettier"],
+    "plugins": ["prettier"],
     "parserOptions": {
         "sourceType": "module"
     },
     "rules": {
         "indent": [
             "error",
-            4
+            4,
+            { "SwitchCase": 1}
         ],
         "linebreak-style": [
             "error",
@@ -27,6 +29,7 @@
             "always"
         ],
         "no-var": "error",
-        "no-console": "off"
+        "no-console": "off",
+        "prettier/prettier": "error"
     }
 }
