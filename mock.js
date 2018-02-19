@@ -11,4 +11,31 @@ let users = [
     }
 ];
 
-module.exports = { users: users };
+let nechs = [
+    {
+        type: 'nech'
+    },
+    {
+        type: 'nech'
+    },
+    {
+        type: 'nech'
+    },
+    {
+        type: 'nech'
+    },
+    {
+        type: 'trivial'
+    },
+    {
+        type: 'trivial'
+    },
+    {
+        type: 'klar'
+    },
+    {
+        type: 'klar'
+    }
+];
+
+module.exports = { users: users, nechs: nechs };
