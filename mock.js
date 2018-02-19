@@ -7,7 +7,7 @@ let users = [
     {
         username: 'user1',
         password: 'test1234',
-        role: 'verified'
+        role: 'unverified'
     }
 ];
 
