@@ -1,3 +1,0 @@
-{
-    "mocha.requires": ["babel-core/register"]
-}
