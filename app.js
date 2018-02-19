@@ -13,15 +13,21 @@ import nechsRoute from './routes/nechs/index';
 
 import User from './model/user';
 import Nech from './model/nech';
+import config from './config';
 
 if (process.env.NODE_ENV != 'production') require('dotenv').load();
+config.db.connection = process.env.DB_CONNECTION || config.db.connection;
+config.jwt.secret = process.env.JWT_SECRET || config.jwt.secret;
+config.mail.service = process.env.MAIL_SERVICE || config.mail.service;
+config.mail.user = process.env.MAIL_USER || config.mail.user;
+config.mail.pass = process.env.MAIL_PASS || config.mail.pass;
 
 const extractJwt = passportJWT.ExtractJwt;
 const JwtStrategy = passportJWT.Strategy;
 
 let jwtOptions = {};
 jwtOptions.jwtFromRequest = extractJwt.fromAuthHeaderAsBearerToken('');
-jwtOptions.secretOrKey = process.env.JWT_SECRET || '';
+jwtOptions.secretOrKey = config.jwt.secret;
 
 passport.use(
     'jwt',
@@ -36,7 +42,7 @@ passport.use(
 
 let app = express();
 
-mongoose.connect(process.env.DB_CONNECTION || 'localhost');
+mongoose.connect(config.db.connection);
 
 if (process.env.NODE_ENV != 'production') {
     let mock = require('./mock');

@@ -3,9 +3,11 @@ import User from '../../model/user';
 import { body, validationResult } from 'express-validator/check';
 import { matchedData } from 'express-validator/filter';
 import jwt from 'jsonwebtoken';
+import nodeMailer from 'nodemailer';
+import VerificationRequest from '../../model/verificationRequest';
+import config from '../../config';
 
 let router = express.Router();
-const secret = process.env.JWT_SECRET || '';
 
 router.post(
     '/register',
@@ -85,7 +87,7 @@ router.post(
                             user: user,
                             loggedIn: true
                         };
-                        let token = jwt.sign(payload, secret);
+                        let token = jwt.sign(payload, config.jwt.secret);
                         res.json({ user: user, token: token });
                     } else {
                         res.status(400).json({ msg: 'invalid password' });
@@ -97,5 +99,95 @@ router.post(
             });
     }
 );
+
+router.post(
+    '/verify',
+    [
+        body('username')
+            .exists()
+            .withMessage('no username specified')
+            .custom(value => {
+                return User.findOne({ username: value })
+                    .then(user => {
+                        if (!user) throw new Error('user not found');
+                    })
+                    .catch(err => {
+                        throw err;
+                    });
+            }),
+        body('email')
+            .exists()
+            .withMessage('no email specified')
+            .isEmail()
+            .withMessage('specified address is not an email')
+            .normalizeEmail()
+            .matches(/(.*)@tu-braunschweig\.de/)
+            .withMessage('email is not a valid educational address')
+    ],
+    (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.mapped() });
+        }
+        const body = matchedData(req);
+
+        const transporter = nodeMailer.createTransport({
+            service: config.mail.service,
+            auth: {
+                user: config.mail.user,
+                pass: config.mail.pass
+            }
+        });
+
+        User.findOne({ username: body.username })
+            .then(user => {
+                const vRequest = new VerificationRequest({
+                    user: user,
+                    email: body.email
+                });
+                vRequest.save();
+                return vRequest;
+            })
+            .then(vRequest => {
+                transporter.sendMail(
+                    {
+                        from: 'verify@doktorne.ch',
+                        to: body.email,
+                        subject: 'Verify your mail',
+                        text: `Enter verification code: ${vRequest.token}`
+                    },
+                    error => {
+                        if (error) {
+                            res.sendStatus(500);
+                            console.log(error);
+                        } else {
+                            res.sendStatus(200);
+                        }
+                    }
+                );
+            });
+    }
+);
+
+router.get('/verify/:token', (req, res) => {
+    VerificationRequest.findOne({ token: req.params.token }).then(vRequest => {
+        if (vRequest) {
+            User.findOne({ _id: vRequest.user })
+                .then(user => {
+                    user.eduMail = vRequest.email;
+                    if (user.role == 'unverified') {
+                        user.role = 'verified';
+                    }
+                    user.save();
+                })
+                .then(() => {
+                    vRequest.remove();
+                    res.sendStatus(200);
+                });
+        } else {
+            res.status(400).send('invalid token');
+        }
+    });
+});
 
 module.exports = router;
