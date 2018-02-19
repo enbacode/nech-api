@@ -5,6 +5,7 @@ import { matchedData } from 'express-validator/filter';
 import jwt from 'jsonwebtoken';
 
 let router = express.Router();
+const secret = process.env.JWT_SECRET || '';
 
 router.post(
     '/register',
@@ -84,7 +85,7 @@ router.post(
                             user: user,
                             loggedIn: true
                         };
-                        let token = jwt.sign(payload, 'notproductionready');
+                        let token = jwt.sign(payload, secret);
                         res.json({ user: user, token: token });
                     } else {
                         res.status(400).json({ msg: 'invalid password' });

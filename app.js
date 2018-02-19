@@ -12,6 +12,7 @@ import meRoute from './routes/users/me';
 import nechsRoute from './routes/nechs/index';
 
 import User from './model/user';
+import Nech from './model/nech';
 
 if (process.env.NODE_ENV != 'production') require('dotenv').load();
 
@@ -20,7 +21,7 @@ const JwtStrategy = passportJWT.Strategy;
 
 let jwtOptions = {};
 jwtOptions.jwtFromRequest = extractJwt.fromAuthHeaderAsBearerToken('');
-jwtOptions.secretOrKey = 'notproductionready';
+jwtOptions.secretOrKey = process.env.JWT_SECRET || '';
 
 passport.use(
     'jwt',
@@ -41,6 +42,9 @@ if (process.env.NODE_ENV != 'production') {
     let mock = require('./mock');
     User.remove({}).then(() => {
         User.create(mock.users);
+    });
+    Nech.remove({}).then(() => {
+        Nech.create(mock.nechs);
     });
 }
 
@@ -63,12 +67,11 @@ app.use((req, res, next) => {
 
 app.use((err, req, res) => {
     // set locals, only providing error in development
-    res.locals.message = err.message;
-    res.locals.error = req.app.get('env') === 'development' ? err : {};
+    // res.locals.message = err.message;
+    // res.locals.error = req.app.get('env') === 'development' ? err : {};
 
     // render the error page
-    res.status(err.status || 500);
-    res.render('error');
+    res.sendStatus(err.status || 500);
 });
 
 module.exports = app;
