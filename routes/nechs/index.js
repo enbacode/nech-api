@@ -10,6 +10,12 @@ router.get('/', (req, res) => {
     });
 });
 
+router.get('/:id', (req, res) => {
+    Nech.findOne({ _id: req.params.id }).then(nech => {
+        res.json(nech);
+    });
+});
+
 router.post(
     '/',
     passport.authenticate('jwt', { session: false }),
