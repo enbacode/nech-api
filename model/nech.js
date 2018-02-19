@@ -15,6 +15,16 @@ const NechSchema = new mongoose.Schema({
     }
 });
 
+NechSchema.options.toJSON = {
+    getters: true,
+    virtuals: true,
+    minimize: false,
+    transform: (doc, ret) => {
+        delete ret.__v;
+        delete ret._id;
+    }
+};
+
 const Nech = mongoose.model('Nech', NechSchema);
 
 module.exports = Nech;

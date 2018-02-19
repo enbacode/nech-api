@@ -19,6 +19,17 @@ const UserSchema = new mongoose.Schema({
     }
 });
 
+UserSchema.options.toJSON = {
+    // getters: true,
+    virtuals: true,
+    // minimize: false,
+    transform: (doc, ret) => {
+        delete ret.__v;
+        delete ret.password;
+        delete ret._id;
+    }
+};
+
 UserSchema.pre('save', function(next) {
     const user = this;
 
