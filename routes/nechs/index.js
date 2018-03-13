@@ -10,12 +10,6 @@ router.get('/', (req, res) => {
     });
 });
 
-router.get('/:id', (req, res) => {
-    Nech.findOne({ _id: req.params.id }).then(nech => {
-        res.json(nech);
-    });
-});
-
 router.post(
     '/',
     passport.authenticate('jwt', { session: false }),
@@ -25,5 +19,31 @@ router.post(
         res.json(nech);
     }
 );
+
+router.post(
+    '/trivial',
+    passport.authenticate('jwt', { session: false }),
+    (req, res) => {
+        let nech = new Nech({ by: req.user._id, type: 'trivial' });
+        nech.save();
+        res.json(nech);
+    }
+);
+
+router.post(
+    '/klar',
+    passport.authenticate('jwt', { session: false }),
+    (req, res) => {
+        let nech = new Nech({ by: req.user._id, type: 'klar' });
+        nech.save();
+        res.json(nech);
+    }
+);
+
+router.get('/:id', (req, res) => {
+    Nech.findOne({ _id: req.params.id }).then(nech => {
+        res.json(nech);
+    });
+});
 
 module.exports = router;
