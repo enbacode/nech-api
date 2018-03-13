@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 const LessonSchema = new mongoose.Schema({
     type: {
         type: String,
-        enum: ['lina', 'anal']
+        enum: ['LA', 'ANA']
     },
     from: {
         type: Date
@@ -19,7 +19,6 @@ LessonSchema.options.toJSON = {
     minimize: false,
     transform: (doc, ret) => {
         delete ret.__v;
-        delete ret._id;
     }
 };
 

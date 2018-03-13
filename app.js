@@ -10,9 +10,11 @@ import authRoute from './routes/auth/index';
 import userRoute from './routes/users/index';
 import meRoute from './routes/users/me';
 import nechsRoute from './routes/nechs/index';
+import lessonRoute from './routes/lessons/index';
 
 import User from './model/user';
 import Nech from './model/nech';
+import Lesson from './model/lesson';
 import config from './config';
 
 if (process.env.NODE_ENV != 'production') require('dotenv').load();
@@ -52,6 +54,9 @@ if (process.env.NODE_ENV != 'production') {
     Nech.remove({}).then(() => {
         Nech.create(mock.nechs);
     });
+    Lesson.remove({}).then(() => {
+        Lesson.create(mock.lessons);
+    });
 }
 
 app.use(logger('dev'));
@@ -64,6 +69,7 @@ app.use('/auth', authRoute);
 app.use('/users/me', meRoute);
 app.use('/users', userRoute);
 app.use('/nechs', nechsRoute);
+app.use('/lessons', lessonRoute);
 
 app.use((req, res, next) => {
     let error = new Error('Not Found');

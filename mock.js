@@ -11,6 +11,19 @@ let users = [
     }
 ];
 
+let lessons = [
+    {
+        type: 'LA',
+        from: new Date('2018-04-01T09:00:00'),
+        to: new Date('2018-04-01T10:30:00')
+    },
+    {
+        type: 'ANA',
+        from: new Date('2018-04-02T08:30:00'),
+        to: new Date('2018-04-02T10:00:00')
+    }
+];
+
 let nechs = [
     {
         type: 'nech'
@@ -38,4 +51,4 @@ let nechs = [
     }
 ];
 
-module.exports = { users: users, nechs: nechs };
+module.exports = { users: users, nechs: nechs, lessons: lessons };
