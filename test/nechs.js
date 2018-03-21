@@ -19,11 +19,11 @@ describe('GET /nechs', () => {
     });
 });
 
-describe('POST /nechs', () => {
+describe('POST /nechs/nech', () => {
     it('should return 401 without token', done => {
         chai
             .request(server)
-            .post('/nechs')
+            .post('/nechs/nech')
             .end((err, res) => {
                 res.should.have.status(401);
                 done();
@@ -37,7 +37,7 @@ describe('POST /nechs', () => {
             .end((loginErr, loginRes) => {
                 chai
                     .request(server)
-                    .post('/nechs')
+                    .post('/nechs/nech')
                     .set('Authorization', `Bearer ${loginRes.body.token}`)
                     .end((err, res) => {
                         res.should.have.status(200);
