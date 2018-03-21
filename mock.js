@@ -2,11 +2,14 @@ let users = [
     {
         username: 'super',
         password: 'test1234',
+        email: 'super@doktorne.ch',
         role: 'super'
     },
     {
         username: 'user1',
         password: 'test1234',
+        email: 'user1@doktorne.ch',
+        eduMail: 'user@some.edu',
         role: 'unverified'
     }
 ];

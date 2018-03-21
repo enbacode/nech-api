@@ -13,8 +13,27 @@ describe('GET /users', () => {
             .end((err, res) => {
                 res.should.have.status(200);
                 res.should.be.json;
-                res.should.be.a('array');
+                res.body.should.be.an('array');
                 res.body.length.should.be.eql(2);
+                done();
+            });
+    });
+});
+
+describe('GET /users/:name', () => {
+    it('should return a user', done => {
+        chai
+            .request(server)
+            .get('/users/user1')
+            .end((err, res) => {
+                res.should.have.status(200);
+                res.should.be.json;
+                res.body.should.be.an('object');
+                res.body.should.have.property('username');
+                res.body.should.have.property('role');
+                res.body.should.not.have.property('password');
+                res.body.should.not.have.property('email');
+                res.body.should.not.have.property('eduMail');
                 done();
             });
     });
