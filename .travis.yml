@@ -1,4 +1,11 @@
 language: node_js
 node_js:
-  - "node"
-  - "9.8.0"
+- node
+- 9.8.0
+deploy:
+  provider: heroku
+  api_key:
+    secure: Ilm3FGcqZEfxZL4xMByzk9ktBuEgJz0NCXZBxyj2fptPDpRvtg203u0q+wXZYfYyKWG3s1o185lc3wRt4uqI/kJmke84oGiONXRlRkj2NtR+pvDNG+9IvVTwNrvrBKcd5OIYbFPOELUPH0mGq642lO4h7ss72cszehyVlEkZH/l1Jheb3SDX0ioCFRvqJTM8tJerRSNf3cXjA4wXzzFtSmHfYAg7kBkEZHLWFzJ7XmzJXMFlnQ0tzvjE4pG5bvwdJNb06g2BDzg5XOX4vCTQOdenjtoVLWBshhbrVTZyG4f5zPWWvaXxlEiKgByYcEPtQzyq0TqMd4r/62FMRqGRD9Okp7orH2LOHDo3acFHtp5Vyo+0cp1NYRHzNsyd1CW+PmnlWi2sN2XQxvVPFIaR7ybUXI6EV7Rvx880GgHZYU9In1lj2OemU/CAGnHkKhrA1cfVVlhfnx0cT1+08uiXyy8TwbBUpPGBQhbRZtQoChQdUk8BEX8N9wZZCl2G747neBoviQpIQNZl7nx9RPi2/1gpeUHCSWKnjWIQ3RBzG9DrFVCRYP+3FCj8q94Y0ud85+EB/biHWcDS/0uGcCzLHrlCkRuJoFyYWAud4HHpZ4jB6CBtETuMu+09yTYIdfFxdqdyKbTvEi9xzyrQjwQrKqD6zETEjmqPfXagMEvkKAI=
+  app: nech-api
+  on:
+    repo: enbacode/nech-api
