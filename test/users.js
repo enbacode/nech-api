@@ -35,6 +35,16 @@ describe('GET /users/:name', () => {
                 done();
             });
     });
+
+    it('should return 404 when username is unknown', done => {
+        chai
+            .request(server)
+            .get('/users/unknownuser123')
+            .end((err, res) => {
+                res.should.have.status(404);
+                done();
+            });
+    });
 });
 
 describe('GET /users/:name/nechs', () => {
