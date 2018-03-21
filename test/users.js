@@ -5,7 +5,22 @@ import server from '../app';
 chai.use(chaiHttp);
 let should = chai.should(); // eslint-disable-line no-unused-vars
 
-describe('/users/me', () => {
+describe('GET /users', () => {
+    it('should return all users', done => {
+        chai
+            .request(server)
+            .get('/users')
+            .end((err, res) => {
+                res.should.have.status(200);
+                res.should.be.json;
+                res.should.be.a('array');
+                res.body.length.should.be.eql(2);
+                done();
+            });
+    });
+});
+
+describe('GET /users/me', () => {
     it('should return 401 w/o token', done => {
         chai
             .request(server)
