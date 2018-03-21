@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "NODE_ENV=test mocha --require babel-core/register",
+    "test": "NODE_ENV=test mocha --require babel-core/register --exit",
     "clear": "rimraf dist/",
     "build": "npm run clear && babel ./ --out-dir dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log,./test --copy-files",
     "start": "npm run build && NODE_ENV=development node dist/index.js",
