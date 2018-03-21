@@ -44,7 +44,22 @@ passport.use(
 
 let app = express();
 
-mongoose.connect(config.db.connection);
+let dbOptions = {
+    server: {
+        socketOptions: {
+            keepAlive: 300000,
+            connectTimeoutMS: 30000
+        }
+    },
+    replset: {
+        socketOptions: {
+            keepAlive: 300000,
+            connectTimeoutMS: 30000
+        }
+    }
+};
+
+mongoose.connect(config.db.connection, dbOptions);
 
 if (process.env.NODE_ENV != 'production') {
     let mock = require('./mock');
