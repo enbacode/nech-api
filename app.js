@@ -60,7 +60,7 @@ let dbOptions = {
 };
 
 mongoose.connect(config.db.connection, dbOptions);
-console.log(process.env.NODE_ENV);
+
 if (process.env.NODE_ENV != 'production') {
     let mock = require('./mock');
     User.remove({}).then(() => {
