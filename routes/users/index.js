@@ -1,7 +1,6 @@
 import express from 'express';
 import User from '../../model/user';
 import Nech from '../../model/nech';
-import mock from '../../mock';
 
 let router = express.Router();
 
@@ -9,10 +8,6 @@ router.get('/', (req, res) => {
     User.find().then(users => {
         res.json(users);
     });
-});
-
-router.get('/heavy', (req, res) => {
-    res.send(mock.nechs);
 });
 
 router.get('/:name', (req, res) => {
