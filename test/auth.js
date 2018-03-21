@@ -6,7 +6,7 @@ chai.use(chaiHttp);
 
 let should = chai.should(); // eslint-disable-line no-unused-vars
 
-describe('auth/login', () => {
+describe('/auth/login', () => {
     it('should return 400 with no fields', done => {
         chai
             .request(server)

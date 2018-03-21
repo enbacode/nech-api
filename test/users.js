@@ -5,7 +5,7 @@ import server from '../app';
 chai.use(chaiHttp);
 let should = chai.should(); // eslint-disable-line no-unused-vars
 
-describe('users/me', () => {
+describe('/users/me', () => {
     it('should return 401 w/o token', done => {
         chai
             .request(server)
