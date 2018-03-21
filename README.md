@@ -36,6 +36,7 @@ Returns status information of the API.
 #### /auth/register
 ##### POST
 Registers a new account.
+
 | Parameter | Example | Description |
 | --- | --- | --- |
 | username | johndoe | the username you want to register
@@ -44,6 +45,7 @@ Registers a new account.
 #### /auth/login
 ##### POST
 Returns an access token.
+
 | Parameter | Example | Description |
 | --- | --- | --- |
 | username | johndoe | your registered username |
@@ -52,6 +54,7 @@ Returns an access token.
 #### /auth/verify
 ##### POST
 Sends a verification code to the specified email.
+
 | Parameter | Example | Description |
 | --- | --- | --- |
 | username | johndoe | your registered username |
