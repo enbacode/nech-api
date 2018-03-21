@@ -11,10 +11,10 @@ router.get('/', (req, res) => {
 });
 
 router.post(
-    '/',
+    '/nech',
     passport.authenticate('jwt', { session: false }),
     (req, res) => {
-        let nech = new Nech({ by: req.user._id });
+        let nech = new Nech({ by: req.user._id, type: 'nech' });
         nech.save();
         res.json(nech);
     }
