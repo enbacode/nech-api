@@ -121,7 +121,6 @@ describe('GET /nechs/:id', () => {
             .request(server)
             .get('/nechs')
             .end((getErr, getRes) => {
-                console.log(getRes);
                 chai
                     .request(server)
                     .get(`/nechs/${getRes.body[0].id}`)
