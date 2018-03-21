@@ -42,7 +42,8 @@ router.post(
 
 router.get('/:id', (req, res) => {
     Nech.findOne({ _id: req.params.id }).then(nech => {
-        res.json(nech);
+        if (nech) res.json(nech);
+        else res.sendStatus(404);
     });
 });
 
