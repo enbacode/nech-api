@@ -32,8 +32,56 @@ describe('GET /users/:name', () => {
                 res.body.should.have.property('username');
                 res.body.should.have.property('role');
                 res.body.should.not.have.property('password');
-                res.body.should.not.have.property('email');
-                res.body.should.not.have.property('eduMail');
+                done();
+            });
+    });
+});
+
+describe('GET /users/:name/nechs', () => {
+    it('should return nechs', done => {
+        chai
+            .request(server)
+            .get('/users/user1/nechs')
+            .end((err, res) => {
+                res.should.have.status(200);
+                res.should.be.json;
+                res.body.should.be.an('array');
+                done();
+            });
+    });
+});
+
+describe('GET /users/:name/nechs/:type', () => {
+    it('should return nechs when type is nech', done => {
+        chai
+            .request(server)
+            .get('/users/user1/nechs/nech')
+            .end((err, res) => {
+                res.should.have.status(200);
+                res.should.be.json;
+                res.body.should.be.an('array');
+                done();
+            });
+    });
+    it('should return trivials when type is trivial', done => {
+        chai
+            .request(server)
+            .get('/users/user1/nechs/trivial')
+            .end((err, res) => {
+                res.should.have.status(200);
+                res.should.be.json;
+                res.body.should.be.an('array');
+                done();
+            });
+    });
+    it('should return klars when type is klar', done => {
+        chai
+            .request(server)
+            .get('/users/user1/nechs/klar')
+            .end((err, res) => {
+                res.should.have.status(200);
+                res.should.be.json;
+                res.body.should.be.an('array');
                 done();
             });
     });
