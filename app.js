@@ -4,6 +4,7 @@ import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import passport from 'passport';
 import passportJWT from 'passport-jwt';
+import cors from 'cors';
 
 import indexRoute from './routes/index';
 import authRoute from './routes/auth/index';
@@ -74,6 +75,7 @@ if (process.env.NODE_ENV != 'production') {
     });
 }
 
+app.use(cors());
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));

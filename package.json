@@ -8,7 +8,7 @@
     "clear": "rimraf dist/",
     "build": "npm run clear && babel ./ --out-dir dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log,./test --copy-files",
     "start": "npm run build && node dist/index.js",
-    "dev": "npm run build && NODE_ENV=development node dist/index.js",    
+    "dev": "npm run build && NODE_ENV=development node dist/index.js",
     "lint": "eslint .",
     "lint-fix": "eslint --fix .",
     "precommit": "lint-staged"
@@ -23,6 +23,7 @@
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^1.0.3",
+    "cors": "^2.8.4",
     "express": "^4.16.2",
     "express-load-routes": "^1.0.1",
     "express-validator": "^5.0.0",
